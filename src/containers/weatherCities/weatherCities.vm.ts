@@ -13,7 +13,7 @@ export class WeatherCitiesVm {
     makeAutoObservable(this)
 
     autorun(() => {
-      this.fetchWeatherDataForCities(this.cityData.map(city => city.id))
+      void this.fetchWeatherDataForCities(this.cityData.map(city => city.id))
     })
   }
 
@@ -27,14 +27,6 @@ export class WeatherCitiesVm {
 
   getWeatherByCityId(cityId: number) {
     return this._citiesWeather[cityId] || null
-  }
-
-  setCitiesWeather(citiesWeather: Record<number, any>) {
-    this._citiesWeather = citiesWeather
-  }
-
-  setCityData(cityData: City[]) {
-    this._cityData = cityData
   }
 
   getCityWeatherInfo(cityId: number) {
