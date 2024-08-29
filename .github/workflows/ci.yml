@@ -13,34 +13,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm install
 
-      - name: Clean Build Folder
-        run: xcodebuild clean -workspace 'ios/weatherApp.xcworkspace' -scheme 'weatherApp'
-
       - name: Install CocoaPods
-        run: pod install --verbose
+        run: cd ios && pod install --verbose
         working-directory: ios
 
-      - name: Build iOS app with verbose logging
-        run: |
-          set -o pipefail &&
-          xcodebuild build \
-            -workspace 'ios/weatherApp.xcworkspace' \
-            -scheme 'weatherApp' \
-            -configuration Debug \
-            -destination 'generic/platform=iOS Simulator' \
-            CONFIGURATION_BUILD_DIR=$PWD/build \
-            -UseNewBuildSystem=YES \
-            -verbose | tee build.log | xcpretty
+      - name: Build iOS app
+        run: npm run ios:build:debug
 
       - name: Save Xcode logs
         if: always()
@@ -50,8 +38,7 @@ jobs:
           path: build.log
 
       - name: Upload to Maestro Cloud
-        uses: mobile-dev-inc/action-maestro-cloud@v1.1.0
+        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
         with:
-          name: 'Build 0.0.1'
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
           app-file: build/weatherApp.app
