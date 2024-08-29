@@ -23,12 +23,31 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Clean Build Folder
+        run: xcodebuild clean -workspace 'ios/weatherApp.xcworkspace' -scheme 'weatherApp'
+
       - name: Install CocoaPods
-        run: pod install
+        run: pod install --verbose
         working-directory: ios
 
-      - name: Build iOS app
-        run: xcodebuild build -workspace 'ios/weatherApp.xcworkspace' -scheme 'weatherApp' -configuration Debug -destination 'generic/platform=iOS Simulator' CONFIGURATION_BUILD_DIR=$PWD/build
+      - name: Build iOS app with verbose logging
+        run: |
+          set -o pipefail &&
+          xcodebuild build \
+            -workspace 'ios/weatherApp.xcworkspace' \
+            -scheme 'weatherApp' \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            CONFIGURATION_BUILD_DIR=$PWD/build \
+            -UseNewBuildSystem=YES \
+            -verbose | tee build.log | xcpretty
+
+      - name: Save Xcode logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: xcode-build-log
+          path: build.log
 
       - name: Upload to Maestro Cloud
         uses: mobile-dev-inc/action-maestro-cloud@v1.1.0
