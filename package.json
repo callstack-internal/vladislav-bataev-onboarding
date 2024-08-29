@@ -5,9 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "ios:release": "react-native run-ios --mode Release",
-    "ios:build:debug": "cd ios && xcodebuild build -scheme 'weatherApp' -configuration Debug -workspace 'weatherApp.xcworkspace' -destination 'generic/platform=iOS Simulator' CONFIGURATION_BUILD_DIR=$PWD/build",
-    "lint": "eslint .",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "start": "react-native start --reset-cache",
     "test": "jest",
     "maestro": "maestro test .maestro/flow.yaml"

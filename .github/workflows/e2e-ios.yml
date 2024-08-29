@@ -1,0 +1,49 @@
+name: Build and upload to Maestro Cloud
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install CocoaPods
+        run: pod install --verbose
+        working-directory: ios
+
+      - name: Build iOS app
+        run: |
+          xcodebuild -workspace ios/weatherApp.xcworkspace \
+          -scheme weatherApp \
+          -configuration Release \
+          -sdk iphonesimulator \
+          -derivedDataPath ios/build
+
+      - name: Save Xcode logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: xcode-build-log
+          path: build.log
+
+      - name: Upload to Maestro Cloud
+        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
+        with:
+          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
+          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app

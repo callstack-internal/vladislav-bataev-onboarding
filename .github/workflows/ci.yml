@@ -1,21 +1,23 @@
-name: Build and upload to Maestro Cloud
+name: Build and Test
+run-name: ${{ github.actor }} is running Build and test 🚀
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: macos-latest
-    timeout-minutes: 120
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -23,33 +25,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install CocoaPods
-        run: pod install --verbose
-        working-directory: ios
+      - name: ESLint
+        run: npm run lint
 
-      - name: Build iOS app
-        run: |
-          xcodebuild -workspace ios/weatherApp.xcworkspace \
-          -scheme weatherApp \
-          -configuration Release \
-          -sdk iphonesimulator \
-          -derivedDataPath ios/build
-
-      - name: Save Xcode logs
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: xcode-build-log
-          path: build.log
-
-      - name: List build directory contents
-        run: ls -R ios/build
-
-      - name: List all files in build directory
-        run: find ios/build -name "*.app"
-
-      - name: Upload to Maestro Cloud
-        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
-        with:
-          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
-          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app
+      - name: Run Jest tests
+        run: npm test
