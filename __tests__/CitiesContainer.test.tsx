@@ -60,6 +60,7 @@ describe('CitiesContainer', () => {
     expect(mockNavigate).toHaveBeenCalledWith(Screens.WeatherCities.DetailedCity, {
       cityName: 'Kyiv, UA',
       cityId: 703448,
+      uniqueID: 'city_0',
     });
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { WeatherDetail } from '@/components/cities/WeatherDetail'; // Adjust the import path as necessary
+import { WeatherDetail } from '@/components/cities/WeatherDetail';
 
 describe('WeatherDetail Component', () => {
   it('renders the label and value correctly without a unit', () => {

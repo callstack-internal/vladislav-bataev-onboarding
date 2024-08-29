@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import {DetailedCityComponent} from '../src/containers/weatherCities/detailedCity/detailedCity.component';
+import { DetailedCityComponent } from '../src/containers/weatherCities/detailedCity/detailedCity.component';
 
 describe('DetailedCityComponent', () => {
   const mockCityWeatherInfo = {
@@ -18,6 +18,7 @@ describe('DetailedCityComponent', () => {
   it('renders the CityWeatherInfo component with correct props', () => {
     const { getByText, getByTestId } = render(
       <DetailedCityComponent
+        uniqueID="city_0"
         cityName="Kyiv, UA"
         cityWeatherInfo={mockCityWeatherInfo}
         weatherDetails={mockWeatherDetails}
@@ -28,13 +29,14 @@ describe('DetailedCityComponent', () => {
     expect(getByText('Sunny')).toBeTruthy();
     expect(getByText('72.0 °F')).toBeTruthy();
 
-    const image = getByTestId('weather-icon');
+    const image = getByTestId('weather_icon_city_0');
     expect(image.props.source.uri).toBe(mockCityWeatherInfo.iconUrl);
   });
 
   it('renders the correct number of WeatherDetail components', () => {
     const { getByText } = render(
       <DetailedCityComponent
+        uniqueID="city_0"
         cityName="Kyiv, UA"
         cityWeatherInfo={mockCityWeatherInfo}
         weatherDetails={mockWeatherDetails}
@@ -52,6 +54,7 @@ describe('DetailedCityComponent', () => {
   it('handles null cityWeatherInfo gracefully', () => {
     const { queryByText } = render(
       <DetailedCityComponent
+        uniqueID="city_0"
         cityName="Kyiv, UA"
         cityWeatherInfo={null}
         weatherDetails={mockWeatherDetails}

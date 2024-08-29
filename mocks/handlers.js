@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw'
 import { CONSTANTS } from '../src/utils/constants'
 
 export const handlers = [
-  http.get(`${CONSTANTS.API_URL}`, () => {
+  http.get(`${CONSTANTS.API_URL}${CONSTANTS.GROUP}`, () => {
     const mockWeatherData = [
       {
         id: 703448,

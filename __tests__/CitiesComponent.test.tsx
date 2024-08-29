@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { City } from '@/types/cities.types';
-import {CitiesComponent} from '../src/containers/weatherCities/cities/cities.component';
+import { CitiesComponent } from '../src/containers/weatherCities/cities/cities.component';
 
 describe('CitiesComponent', () => {
   const mockCities: City[] = [
@@ -29,7 +29,7 @@ describe('CitiesComponent', () => {
     expect(getByText('Sumy, UA')).toBeTruthy();
   });
 
-  it('calls onCityPress with the correct city data when a city is pressed', () => {
+  it('calls onCityPress with the correct city data and uniqueID when a city is pressed', () => {
     const { getByText } = render(
       <CitiesComponent
         onCityPress={mockOnCityPress}
@@ -39,7 +39,10 @@ describe('CitiesComponent', () => {
     );
 
     fireEvent.press(getByText('Kyiv, UA'));
-    expect(mockOnCityPress).toHaveBeenCalledWith(mockCities[0]);
+    expect(mockOnCityPress).toHaveBeenCalledWith(mockCities[0], 'city_0');
+
+    fireEvent.press(getByText('Sumy, UA'));
+    expect(mockOnCityPress).toHaveBeenCalledWith(mockCities[1], 'city_1');
   });
 
   it('passes the correct weather data to each CityItem', () => {

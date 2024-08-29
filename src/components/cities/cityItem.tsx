@@ -13,6 +13,7 @@ interface CityItemProps {
     iconUrl: string;
   };
   testID: string;
+  accessible?: boolean;
 }
 
 export const CityItem = ({
@@ -20,11 +21,12 @@ export const CityItem = ({
   onPress,
   weatherData,
   testID,
+  accessible = false,
 }: CityItemProps) => {
   return (
     <TouchableOpacity
       testID={testID}
-      accessible={false}
+      accessible={accessible}
       accessibilityRole="button"
       style={styles.container}
       onPress={() => onPress(city, testID)}
