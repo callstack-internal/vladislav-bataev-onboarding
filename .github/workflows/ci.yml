@@ -28,7 +28,7 @@ jobs:
         working-directory: ios
 
       - name: Build iOS app
-        run: npm run ios:build:debug
+        run: npm run ios:release
 
       - name: Save Xcode logs
         if: always()
