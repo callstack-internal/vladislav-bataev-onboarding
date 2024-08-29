@@ -5,7 +5,6 @@ import { ErrorBoundary } from './src/core/errorBoundary'
 import { RootNavigator } from './src/navigation/root.navigator'
 
 const App = observer((): React.JSX.Element | null => {
-
   return (
     <ErrorBoundary>
       <RootNavigator />
