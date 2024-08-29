@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Install CocoaPods
-        run: cd ios && pod install --verbose
+        run: pod install --verbose
         working-directory: ios
 
       - name: Build iOS app
