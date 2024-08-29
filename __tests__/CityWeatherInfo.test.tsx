@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { CityWeatherInfo } from '@/components/cities/CityWeatherInfo'; // Adjust the import path as necessary
+import { CityWeatherInfo } from '@/components/cities/CityWeatherInfo';
 
 describe('CityWeatherInfo Component', () => {
   const mockWeatherData = {

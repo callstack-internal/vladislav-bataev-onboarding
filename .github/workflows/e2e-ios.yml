@@ -1,4 +1,5 @@
-name: Build and upload to Maestro Cloud
+name: e2e iOS Tests
+run-name: ${{ github.actor }} is running e2e iOS Tests 🚀
 
 on:
   push:
