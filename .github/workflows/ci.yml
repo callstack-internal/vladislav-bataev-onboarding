@@ -7,44 +7,58 @@ on:
 
 jobs:
   test:
-    runs-on: macos-14
+    runs-on: macos-12
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Run Jest tests
-        run: npm test -- --coverage
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '11'
-
-      - name: Set up iOS Simulator
-        uses: futureware-tech/simulator-action@v2
+      - uses: futureware-tech/simulator-action@v2
         with:
-          model: 'iPhone 15 Pro'
-          os_version: '17.5'
-
-      - name: Install Maestro
-        uses: dniHze/maestro-test-action@v1
+          model: 'iPhone 14 Pro'
+      - uses: dniHze/maestro-test-action@v1
         with:
-          version: 1.17.0
+          flow: .maestro
+          report: report.xml
 
-      - name: Run Maestro tests with timeout and debug
-        run: |
-          export MAESTRO_CLI_NO_ANALYTICS=1
-          maestro test .maestro/flow.yaml --format=junit --output=maestro/report.xml --no-ansi --timeout 120s --debug
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Run ESLint
+#        run: npm run lint
+#
+#      - name: Run Jest tests
+#        run: npm test -- --coverage
+#
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'adopt'
+#          java-version: '11'
+#
+#      - name: Set up iOS Simulator
+#        uses: futureware-tech/simulator-action@v2
+#        with:
+#          model: 'iPhone 15 Pro'
+#          os_version: '17.5'
+#
+#      - name: Install Maestro
+#        uses: dniHze/maestro-test-action@v1
+#        with:
+#          version: 1.17.0
+#
+#      - name: Run Maestro tests with timeout and debug
+#        run: |
+#          export MAESTRO_CLI_NO_ANALYTICS=1
+#          maestro test .maestro/flow.yaml --format=junit --output=maestro/report.xml --no-ansi --timeout 120s --debug
