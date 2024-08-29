@@ -28,7 +28,12 @@ jobs:
         working-directory: ios
 
       - name: Build iOS app
-        run: npm run ios:release
+        run: |
+          xcodebuild -workspace ios/weatherApp.xcworkspace \
+          -scheme weatherApp \
+          -configuration Release \
+          -sdk iphonesimulator \
+          -derivedDataPath ios/build
 
       - name: Save Xcode logs
         if: always()
@@ -39,6 +44,9 @@ jobs:
 
       - name: List build directory contents
         run: ls -R ios/build
+
+      - name: List all files in build directory
+        run: find ios/build -name "*.app"
 
       - name: Upload to Maestro Cloud
         uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
