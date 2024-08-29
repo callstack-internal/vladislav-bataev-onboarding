@@ -37,8 +37,11 @@ jobs:
           name: xcode-build-log
           path: build.log
 
+      - name: List build directory contents
+        run: ls -R ios/build
+
       - name: Upload to Maestro Cloud
         uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
         with:
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
-          app-file: build/weatherApp.app
+          app-file: ios/build/Release-iphonesimulator/weatherApp.app
