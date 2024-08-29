@@ -22,12 +22,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install CocoaPods
+        run: pod install
+        working-directory: ios
+
       - name: Build iOS app
-        run: xcodebuild build -workspace 'weatherApp.xcworkspace' -scheme 'weatherApp' -configuration Debug -destination 'generic/platform=iOS Simulator' CONFIGURATION_BUILD_DIR=$PWD/build
+        run: xcodebuild build -workspace 'ios/weatherApp.xcworkspace' -scheme 'weatherApp' -configuration Debug -destination 'generic/platform=iOS Simulator' CONFIGURATION_BUILD_DIR=$PWD/build
 
       - name: Upload to Maestro Cloud
         uses: mobile-dev-inc/action-maestro-cloud@v1.1.0
         with:
-          name: 'App version 0.0.1'
+          name: 'Build 0.0.1'
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
           app-file: build/weatherApp.app
