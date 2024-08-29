@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-12
+    runs-on: macos-14
 
     steps:
       - name: Checkout code
@@ -36,10 +36,15 @@ jobs:
       - name: Set up iOS Simulator
         uses: futureware-tech/simulator-action@v2
         with:
-          model: 'iPhone 14 Pro'
+          model: 'iPhone 15 Pro'
+          os_version: '17.5'
 
-      - name: Run Maestro tests
+      - name: Install Maestro
         uses: dniHze/maestro-test-action@v1
         with:
-          flow: .maestro
-          report: maestro/report.xml
+          version: 1.17.0
+
+      - name: Run Maestro tests with timeout and debug
+        run: |
+          export MAESTRO_CLI_NO_ANALYTICS=1
+          maestro test .maestro/flow.yaml --format=junit --output=maestro/report.xml --no-ansi --timeout 120s --debug
