@@ -6,6 +6,7 @@ import { WeatherDetail } from '@/components/cities/weatherDetail.tsx'
 
 interface DetailedCityComponentProps {
   cityName: string;
+  uniqueID: string;
   cityWeatherInfo: {
     temperature: number;
     description: string;
@@ -16,12 +17,14 @@ interface DetailedCityComponentProps {
 
 export const DetailedCityComponent = ({
   cityName,
+  uniqueID,
   cityWeatherInfo,
   weatherDetails,
 }: DetailedCityComponentProps) => {
   return (
     <View style={styles.container}>
       <CityWeatherInfo
+        testID={uniqueID}
         cityName={cityName}
         weatherData={cityWeatherInfo}
       />
@@ -29,6 +32,7 @@ export const DetailedCityComponent = ({
         {weatherDetails.map((detail, index) => (
           <WeatherDetail
             key={index}
+            testID={uniqueID}
             label={detail.label}
             value={detail.value}
             unit={detail.unit}

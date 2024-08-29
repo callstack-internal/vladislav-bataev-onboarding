@@ -6,7 +6,7 @@ import { CityItem } from '@/components/cities/cityItem.tsx'
 import { City } from '@/types/cities.types.ts'
 
 interface CitiesComponentProps {
-  onCityPress: (city: City) => void;
+  onCityPress: (city: City, uniqueID: string) => void;
   citiesWeather: Record<number, any>;
   cityData: City[];
 }
@@ -16,8 +16,9 @@ export const CitiesComponent = ({
   citiesWeather,
   cityData,
 }: CitiesComponentProps) => {
-  const renderItem = ({ item }: { item: City }) => (
+  const renderItem = ({ item, index }: { item: City, index: number }) => (
     <CityItem
+      testID={`city_${index}`}
       city={item}
       onPress={onCityPress}
       weatherData={citiesWeather[item.id] || null}

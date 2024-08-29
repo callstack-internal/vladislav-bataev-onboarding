@@ -1,11 +1,12 @@
 module.exports = {
   preset: 'react-native',
-  setupFiles: ['./jest-setup.js'],  // Ensure this is included
+  setupFilesAfterEnv: ['./jest-setup.js'],
+  setupFiles: ['@shopify/flash-list/jestSetup'],
   transformIgnorePatterns: [
     'node_modules/(?!(@react-native|react-native|@react-native-community|@react-navigation)/)'
   ],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   testPathIgnorePatterns: [
     '/node_modules/',

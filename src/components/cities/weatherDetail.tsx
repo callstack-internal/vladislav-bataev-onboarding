@@ -5,13 +5,27 @@ interface WeatherDetailProps {
   label: string;
   value: string | number;
   unit?: string;
+  testID?: string;
 }
 
-export const WeatherDetail = ({ label, value, unit }: WeatherDetailProps) => {
+export const WeatherDetail = ({
+  label,
+  value,
+  unit,
+  testID
+}: WeatherDetailProps) => {
   return (
     <View style={styles.detailRow}>
-      <Text style={styles.detailLabel}>{label}</Text>
-      <Text style={styles.detailValue}>
+      <Text
+        testID={`label_${testID}`}
+        style={styles.detailLabel}
+      >
+        {label}
+      </Text>
+      <Text
+        testID={`value_unit_${testID}`}
+        style={styles.detailValue}
+      >
         {value} {unit}
       </Text>
     </View>

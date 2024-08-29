@@ -3,15 +3,16 @@ import { makeAutoObservable, runInAction, autorun } from 'mobx'
 
 import { Logger } from '@/core/logger.ts'
 import { City } from '@/types/cities.types'
-import { CONSTANTS, CITIES } from '@/utils/constants.ts'
+import { CONSTANTS } from '@/utils/constants.ts'
 
 export class WeatherCitiesVm {
   _citiesWeather: Record<number, any> = {}
-  _cityData: City[] = CITIES
+  _cityData: City[] = []
 
-  constructor() {
+  constructor(citiesData: City[]) {
     makeAutoObservable(this)
 
+    this._cityData = citiesData
     autorun(() => {
       void this.fetchWeatherDataForCities(this.cityData.map(city => city.id))
     })
@@ -65,7 +66,7 @@ export class WeatherCitiesVm {
 
   private async fetchWeatherData(cityIds: number[]): Promise<any> {
     const response = await axios.get(
-      `${CONSTANTS.API_URL}?id=${cityIds.join(',')}&appid=${CONSTANTS.API_KEY}&units=imperial`
+      `${CONSTANTS.API_URL}${CONSTANTS.GROUP}?id=${cityIds.join(',')}&appid=${CONSTANTS.API_KEY}&units=imperial`
     )
     return response.data
   }

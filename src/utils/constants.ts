@@ -1,5 +1,7 @@
 export const CONSTANTS = {
-  API_URL: 'https://api.openweathermap.org/data/2.5/group',
+  API_URL: 'https://api.openweathermap.org/data/2.5/',
+  GROUP: 'group',
+  WEATHER: 'weather',
   WEATHER_ICON_URL: 'https://openweathermap.org/img/wn',
   API_KEY: '262f8802ad022c5979b3431fbe8cfa0c',
 }
@@ -16,4 +18,9 @@ export const CITIES = [
   { id: 3247449, name: 'Aachen, DE' },
   { id: 5815135, name: 'Washington, US' },
   { id: 5128581, name: 'New York City, US' },
+]
+
+export const TEST_CITIES = [
+  { id: 703448, name: 'Kyiv, UA' },
+  { id: 692194, name: 'Sumy, UA' },
 ]

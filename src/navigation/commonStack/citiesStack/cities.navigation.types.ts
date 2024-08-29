@@ -11,6 +11,7 @@ export enum WeatherCities {
 export type WeatherStackList = {
   [WeatherCities.Cities]: undefined;
   [WeatherCities.DetailedCity]: {
+    uniqueID: string,
     cityName: string,
     cityId: number,
   };

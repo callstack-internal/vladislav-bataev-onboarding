@@ -1,2 +1,7 @@
-// jest-setup.js
-require('@shopify/flash-list/jestSetup')
+import { server } from './mocks/server'
+
+beforeAll(() => server.listen())
+
+afterEach(() => server.resetHandlers())
+
+afterAll(() => server.close())

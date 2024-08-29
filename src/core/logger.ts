@@ -85,7 +85,7 @@ class LoggerClass {
     this.logger?.error(value)
   }
 
-  private logDeviceInfo(): void {
+  logDeviceInfo(): void {
     const start = '______________________________________________________'
     const methods: Record<any, any>[] = [
       { method: getSystemName, description: 'System' },

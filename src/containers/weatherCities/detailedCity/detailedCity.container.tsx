@@ -11,11 +11,12 @@ import { useCitiesVm } from '@/utils/viewModelsUtils/cities.vm.utils.ts'
 export const DetailedCityContainer = observer(({
   route,
 }: WeatherCitiesScreenNavProps<WeatherCities.DetailedCity>) => {
-  const { cityId, cityName } = route.params
+  const { cityId, cityName, uniqueID } = route.params
   const citiesVm = useCitiesVm()
 
   return (
     <DetailedCityComponent
+      uniqueID={uniqueID}
       cityName={cityName}
       cityWeatherInfo={citiesVm.getCityWeatherInfo(cityId)}
       weatherDetails={citiesVm.getWeatherDetails(cityId)}

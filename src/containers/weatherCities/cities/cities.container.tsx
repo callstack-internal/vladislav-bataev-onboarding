@@ -1,4 +1,3 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
@@ -16,13 +15,12 @@ export const CitiesContainer = observer(({
 }: WeatherCitiesScreenNavProps<WeatherCities.Cities>) => {
   const citiesVm = useCitiesVm()
 
-  const onCityPress = async (city: City) => {
+  const onCityPress = async (city: City, uniqueID: string) => {
     const weatherData = citiesVm.getWeatherByCityId(city.id)
 
     if (weatherData) {
       navigation.navigate(Screens.WeatherCities.DetailedCity, {
-        cityName: city.name,
-        cityId: city.id,
+        uniqueID, cityName: city.name, cityId: city.id,
       })
     }
   }

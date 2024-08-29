@@ -1,15 +1,14 @@
 import { NavigatorScreenParams } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-import { WeatherStackList } from '@/navigation/commonStack/citiesStack/cities.navigation.types.ts'
-
+import { TabBarStackList } from '@/navigation/commonStack/tabs/tab.navigation.types.ts'
 
 export enum RootScreen {
-  WeatherCities = 'WeatherCities',
+  Tabs = 'Tabs',
 }
 
 export type RootStackList = {
-  [RootScreen.WeatherCities]: NavigatorScreenParams<WeatherStackList>;
+  [RootScreen.Tabs]: NavigatorScreenParams<TabBarStackList>;
 }
 
 export type RootStackScreenProps<T extends keyof RootStackList> =

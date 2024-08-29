@@ -8,28 +8,50 @@ interface CityWeatherInfoProps {
     description: string;
     iconUrl: string;
   } | null;
+  testID: string,
 }
 
-export const CityWeatherInfo = ({ cityName, weatherData }: CityWeatherInfoProps) => {
+export const CityWeatherInfo = ({
+  cityName,
+  weatherData,
+  testID,
+}: CityWeatherInfoProps) => {
   return (
-    <View style={styles.header}>
+    <View
+      style={styles.header}
+    >
       {weatherData && (
         <Image
           accessibilityRole="image"
-          testID="weather-icon"
+          testID={`weather_icon_${testID}`}
           source={{ uri: weatherData.iconUrl }}
           style={styles.weatherIcon}
         />
       )}
-      <View style={styles.headerTextContainer}>
-        <Text style={styles.cityName}>{cityName}</Text>
+      <View
+        style={styles.headerTextContainer}
+      >
+        <Text
+          testID={`city_name_${testID}`}
+          style={styles.cityName}
+        >
+          {cityName}
+        </Text>
         {weatherData && (
-          <Text style={styles.description}>{weatherData.description}</Text>
+          <Text
+            testID={`description_${testID}`}
+            style={styles.description}
+          >
+            {weatherData.description}
+          </Text>
         )}
       </View>
       {weatherData && (
         <View style={styles.temperatureContainer}>
-          <Text style={styles.temperature}>
+          <Text
+            testID={`temperature_${testID}`}
+            style={styles.temperature}
+          >
             {weatherData.temperature.toFixed(1)} °F
           </Text>
         </View>
@@ -54,6 +76,7 @@ const styles = StyleSheet.create({
   },
   cityName: {
     fontSize: 24,
+    paddingRight: 15,
     fontWeight: 'bold',
     marginBottom: 4,
   },
