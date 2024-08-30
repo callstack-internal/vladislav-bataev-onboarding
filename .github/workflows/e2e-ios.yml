@@ -41,11 +41,14 @@ jobs:
         run: bundle exec fastlane e2e_tests
         working-directory: ios
 
-      - name: List build directory contents
-        run: ls -R ios/build
+      - name: List all files in build directory with sizes
+        run: find ios/build -type f -exec ls -lh {} \;
 
-      - name: List all files in build directory
-        run: find ios/build -name "*.app"
+      - name: Locate the .app file
+        run: find ios/build -name "*.app" -print
+
+      - name: List directories in build directory
+        run: find ios/build -type d
 
       - name: Upload to Maestro Cloud
         uses: mobile-dev-inc/action-maestro-cloud@v1.7.0

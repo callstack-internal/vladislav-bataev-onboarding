@@ -8,16 +8,13 @@ platform :ios do
     cocoapods
 
     gym(
-      workspace: "weatherApp.xcworkspace",
       scheme: "weatherApp",
       configuration: "Release",
       skip_package_ipa: true,
-      destination: "generic/platform=iOS Simulator",
       skip_codesigning: true,
-      derived_data_path: "ios/build",
-      output_directory: "ios/build/Build/Products/Release-iphonesimulator",
-      output_name: "weatherApp.app"
+      destination: "generic/platform=iOS Simulator",
     )
 
+    UI.success("Build completed")
   end
 end
