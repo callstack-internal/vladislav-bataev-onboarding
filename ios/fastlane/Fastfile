@@ -7,12 +7,16 @@ platform :ios do
 
     cocoapods
 
-    xcodebuild(
-      configuration: "Release",
-      scheme: "weatherApp",
+    gym(
       workspace: "weatherApp.xcworkspace",
-      xcargs: "-quiet -sdk 'iphonesimulator' -destination 'generic/platform=iOS Simulator'",
-      derivedDataPath: "ios/build"
+      scheme: "weatherApp",
+      configuration: "Release",
+      skip_package_ipa: true,
+      destination: "generic/platform=iOS Simulator",
+      skip_codesigning: true,
+      derived_data_path: "ios/build",
+      output_directory: "ios/build/Build/Products/Release-iphonesimulator",
+      output_name: "weatherApp.app"
     )
 
   end

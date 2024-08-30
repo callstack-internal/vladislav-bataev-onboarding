@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios e2e_tests
 ```
 
-Run E2E tests for the iOS app
+Build iOS Release app
 
 ----
 
