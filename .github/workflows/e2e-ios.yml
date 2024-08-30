@@ -33,10 +33,3 @@ jobs:
         run: cd ./ios && bundle exec fastlane e2e_tests
         env:
           MAESTRO_CLOUD_API_KEY: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
-
-      - name: Save Xcode logs
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: xcode-build-log
-          path: build.log
