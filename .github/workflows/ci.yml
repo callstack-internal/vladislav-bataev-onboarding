@@ -2,9 +2,6 @@ name: Build and Test
 run-name: ${{ github.actor }} is running Build and test 🚀
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
