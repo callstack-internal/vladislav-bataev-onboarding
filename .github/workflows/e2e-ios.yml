@@ -21,9 +21,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Node.js dependencies
+      - name: Install dependencies
         run: npm install
-        working-directory: ios
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -35,11 +34,15 @@ jobs:
         working-directory: ios
 
       - name: Install CocoaPods
-        run: bundle exec pod install --verbose
+        run: pod install --verbose
         working-directory: ios
 
       - name: Run Fastlane E2E Tests
         run: bundle exec fastlane e2e_tests
         working-directory: ios
-        env:
-          MAESTRO_CLOUD_API_KEY: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
+
+      - name: Upload to Maestro Cloud
+        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
+        with:
+          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
+          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app

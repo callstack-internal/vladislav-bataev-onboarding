@@ -1,7 +1,7 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Run E2E tests for the iOS app"
+  desc "Build iOS Release app"
   lane :e2e_tests do
     sh("npm install")
 
@@ -15,6 +15,5 @@ platform :ios do
       derivedDataPath: "ios/build"
     )
 
-    sh("maestro-cloud --api-key #{ENV['MAESTRO_CLOUD_API_KEY']} --app-file ios/build/Build/Products/Release-iphonesimulator/weatherApp.app --workspace .maestro/ios/")
   end
 end
