@@ -12,7 +12,9 @@ platform :ios do
       configuration: "Release",
       skip_package_ipa: true,
       skip_codesigning: true,
+      clean: true,
       destination: "generic/platform=iOS Simulator",
+      derived_data_path: "ios/build/DerivedData"
     )
 
     UI.success("Build completed")

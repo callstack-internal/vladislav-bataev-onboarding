@@ -50,8 +50,11 @@ jobs:
       - name: List directories in build directory
         run: find ios/build -type d
 
-      - name: Upload to Maestro Cloud
-        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
-        with:
-          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
-          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app
+      - name: List default derived data directory
+        run: ls -R ~/Library/Developer/Xcode/DerivedData
+
+#      - name: Upload to Maestro Cloud
+#        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
+#        with:
+#          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
+#          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app
