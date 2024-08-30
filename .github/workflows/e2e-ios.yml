@@ -21,17 +21,19 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6.10
-          bundler: 2.4.22
+          ruby-version: 3.3.4
+          bundler: 2.5.11
 
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install
-        working-directory: ios
 
       - name: Install CocoaPods
         run: bundle exec pod install --verbose
