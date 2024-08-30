@@ -26,11 +26,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install bundler
-          bundle install
+          gem install bundler -v 1.17.2
+          bundle _1.17.2_ install
+        working-directory: ios
 
       - name: Install CocoaPods
-        run: bundle exec pod install --verbose
+        run: pod install --verbose
         working-directory: ios
 
       - name: Run Fastlane E2E Tests
