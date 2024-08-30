@@ -5,10 +5,11 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "lint": "eslint .",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "start": "react-native start --reset-cache",
     "test": "jest",
-    "maestro": "maestro test .maestro/flow.yaml"
+    "maestro:ios": "maestro test .maestro/ios/",
+    "maestro:android": "maestro test .maestro/android/"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.6.1",
