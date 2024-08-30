@@ -21,14 +21,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.3.4
-          bundler: 2.5.11
 
       - name: Install dependencies
         run: |
