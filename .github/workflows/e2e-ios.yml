@@ -30,6 +30,6 @@ jobs:
         working-directory: ios
 
       - name: Run Fastlane E2E Tests
-        run: cd ./ios && bundle exec fastlane e2e_tests
+        run: bundle exec fastlane e2e_tests
         env:
           MAESTRO_CLOUD_API_KEY: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
