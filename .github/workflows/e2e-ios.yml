@@ -48,3 +48,4 @@ jobs:
         with:
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
           app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app
+          workspace: .maestro/ios/
