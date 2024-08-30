@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install Node.js dependencies
+        run: npm install
+        working-directory: ios
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
 
@@ -31,7 +35,7 @@ jobs:
         working-directory: ios
 
       - name: Install CocoaPods
-        run: pod install --verbose
+        run: bundle exec pod install --verbose
         working-directory: ios
 
       - name: Run Fastlane E2E Tests
