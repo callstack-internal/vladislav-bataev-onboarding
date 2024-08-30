@@ -2,6 +2,9 @@ name: e2e iOS Tests
 run-name: ${{ github.actor }} is running e2e iOS Tests 🚀
 
 on:
+  #  for testing
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -26,13 +29,10 @@ jobs:
         run: pod install --verbose
         working-directory: ios
 
-      - name: Build iOS app
-        run: |
-          xcodebuild -workspace ios/weatherApp.xcworkspace \
-          -scheme weatherApp \
-          -configuration Release \
-          -sdk iphonesimulator \
-          -derivedDataPath ios/build
+      - name: Run Fastlane E2E Tests
+        run: cd ./ios && bundle exec fastlane e2e_tests
+        env:
+          MAESTRO_CLOUD_API_KEY: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
 
       - name: Save Xcode logs
         if: always()
@@ -40,10 +40,3 @@ jobs:
         with:
           name: xcode-build-log
           path: build.log
-
-      - name: Upload to Maestro Cloud
-        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
-        with:
-          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
-          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app
-          workspace: .maestro/ios/
