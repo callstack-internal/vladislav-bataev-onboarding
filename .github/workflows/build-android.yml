@@ -2,8 +2,6 @@ name: Build and Distribute Android Release
 run-name: ${{ github.actor }} is building and distributing Android Release 🚀
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: ['main']
 
