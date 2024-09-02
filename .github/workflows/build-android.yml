@@ -10,7 +10,6 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
       - name: checkout
@@ -75,10 +74,24 @@ jobs:
       - name: Install dependencies
         run: |
           gem install bundler -v 1.17.2
-          bundle _1.17.2_ install
+          bundle _1.17.2_ install     
+
+#      - name: Install android check deps warning
+#        run: |
+#          gem install bundler -v 1.17.2
+#          cd android && bundle _1.17.2_ install
+
+      - name: Check if Fastlane is installed
+        run: |
+          if fastlane --version; then
+            echo "Fastlane is installed"
+          else
+            echo "Fastlane is not installed"
+            exit 1
+          fi
 
       - name: Run Fastlane
-        run: npm run fastlane:android
+        run: cd android && bundle exec fastlane build
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
