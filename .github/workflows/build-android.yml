@@ -77,16 +77,7 @@ jobs:
       - name: Install dependencies
         run: |
           gem install bundler
-          bundle install  
-
-      - name: Check if Fastlane is installed
-        run: |
-          if fastlane --version; then
-            echo "Fastlane is installed"
-          else
-            echo "Fastlane is not installed"
-            exit 1
-          fi
+          bundle install
 
       - name: Run Fastlane
         run: cd android && bundle exec fastlane build
