@@ -3,7 +3,6 @@ default_platform(:android)
 platform :android do
   desc "Build the Android app"
   lane :build do
-
     begin
       gradle(
         task: "assembleRelease"
@@ -13,5 +12,23 @@ platform :android do
       UI.error("Failed to build the app: #{e}")
       raise e
     end
+  end
+
+  desc "Distribute the app to Firebase"
+  lane :distribute do
+    gradle(task: 'clean assembleRelease', project_dir: '.', print_command: false, properties: {})
+    release = firebase_app_distribution(
+        app: "1:408904905285:android:0e4314358215409b48292c",
+        testers: "bataevvlad@gmail.com, vladislav.bataev@callstack.com",
+        release_notes: "New amazing build!"
+    )
+  end
+
+  desc "Increment build version"
+  lane :increment_version do
+    latest_release = firebase_app_distribution_get_latest_release(
+       app: "1:408904905285:android:0e4314358215409b48292c",
+    )
+    increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
   end
 end

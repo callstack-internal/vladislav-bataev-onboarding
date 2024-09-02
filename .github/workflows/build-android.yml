@@ -1,5 +1,4 @@
-name: Build release without signing - Android
-run-name: ${{ github.actor }} build release without signing - Android
+name: Build and Distribute Android Release
 
 on:
   push:
@@ -12,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Get npm cache directory path
@@ -79,8 +78,21 @@ jobs:
           gem install bundler
           bundle install
 
-      - name: Run Fastlane
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Increment Version Code
+        run: cd android && bundle exec fastlane increment_version
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Run Fastlane Build
         run: cd android && bundle exec fastlane build
+
+      - name: Distribute to Firebase
+        run: cd android && bundle exec fastlane distribute
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
