@@ -70,7 +70,7 @@ jobs:
         run: |
           gem install bundler -v 1.17.2
           bundle _1.17.2_ install
-        working-directory: ios
+        working-directory: android
 
       - name: Setup Java environment
         uses: actions/setup-java@v3
