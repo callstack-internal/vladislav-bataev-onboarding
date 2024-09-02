@@ -39,11 +39,14 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.4
+          bundler: 2.5.11
 
       - name: Install dependencies
         run: |
-          gem install bundler -v 1.17.2
-          bundle _1.17.2_ install
+          gem install bundler
+          bundle install
         working-directory: ios
 
       - name: Install CocoaPods

@@ -64,6 +64,9 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.4
+          bundler: 2.5.18
 
       - name: Setup Java environment
         uses: actions/setup-java@v3
@@ -73,13 +76,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install bundler -v 1.17.2
-          bundle _1.17.2_ install     
-
-#      - name: Install android check deps warning
-#        run: |
-#          gem install bundler -v 1.17.2
-#          cd android && bundle _1.17.2_ install
+          gem install bundler
+          bundle install  
 
       - name: Check if Fastlane is installed
         run: |
