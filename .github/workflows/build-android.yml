@@ -1,4 +1,5 @@
 name: Build and Distribute Android Release
+run-name: ${{ github.actor }} Build and Distribute Android Release 🚀
 
 on:
   push:

@@ -1,5 +1,5 @@
 name: Build release without signing - iOS
-run-name: ${{ github.actor }} build release without signing - iOS
+run-name: ${{ github.actor }} Build release without signing - iOS 🚀
 
 on:
   push:
