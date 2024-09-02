@@ -24,37 +24,28 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-
-      - name: Install dependencies
-        run: |
-          gem install bundler -v 1.17.2
-          bundle _1.17.2_ install
-        working-directory: ios
-
       - name: Install CocoaPods
         run: pod install --verbose
         working-directory: ios
 
-      - name: Run Fastlane E2E Tests
-        run: bundle exec fastlane e2e_tests
-        working-directory: ios
+      - name: Build iOS app
+        run: |
+          xcodebuild -workspace ios/weatherApp.xcworkspace \
+          -scheme weatherApp \
+          -configuration Release \
+          -sdk iphonesimulator \
+          -derivedDataPath ios/build
 
-      - name: List all files in build directory with sizes
-        run: find ios/build -type f -exec ls -lh {} \;
+      - name: Save Xcode logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: xcode-build-log
+          path: build.log
 
-      - name: Locate the .app file
-        run: find ios/build -name "*.app" -print
-
-      - name: List directories in build directory
-        run: find ios/build -type d
-
-      - name: List default derived data directory
-        run: ls -R ~/Library/Developer/Xcode/DerivedData
-
-#      - name: Upload to Maestro Cloud
-#        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
-#        with:
-#          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
-#          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app
+      - name: Upload to Maestro Cloud
+        uses: mobile-dev-inc/action-maestro-cloud@v1.7.0
+        with:
+          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
+          app-file: ios/build/Build/Products/Release-iphonesimulator/weatherApp.app
+          workspace: .maestro/ios/

@@ -2,10 +2,7 @@ default_platform(:ios)
 
 platform :ios do
   desc "Build iOS Release app"
-  lane :e2e_tests do
-    sh("npm install")
-
-    cocoapods
+  lane :build do
 
     gym(
       scheme: "weatherApp",
@@ -14,9 +11,11 @@ platform :ios do
       skip_codesigning: true,
       clean: true,
       destination: "generic/platform=iOS Simulator",
-      derived_data_path: "ios/build/DerivedData"
     )
 
     UI.success("Build completed")
+  rescue => e
+    UI.error("Failed to build the app: #{e}")
+    raise e
   end
 end
