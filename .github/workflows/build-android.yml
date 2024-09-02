@@ -65,12 +65,15 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.4
+          bundler: 2.5.11
 
-      - name: Install Ruby dependencies
-        run: |
-          gem install bundler -v 1.17.2
-          bundle _1.17.2_ install
-        working-directory: android
+#      - name: Install Ruby dependencies
+#        run: |
+#          gem install bundler -v 1.17.2
+#          bundle _1.17.2_ install
+#        working-directory: android
 
       - name: Setup Java environment
         uses: actions/setup-java@v3
@@ -78,9 +81,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Run Fastlane
+      - name: Install dependencies
         run: |
-          bundle exec fastlane android build
+          gem install bundler
+          bundle install
+
+      - name: Run Fastlane
+        run: bundle exec fastlane build
         working-directory: android
 
       - name: Upload Artifacts
