@@ -27,8 +27,16 @@ platform :android do
   desc "Increment build version"
   lane :increment_version do
     latest_release = firebase_app_distribution_get_latest_release(
-       app: "1:408904905285:android:0e4314358215409b48292c",
+       app: "1:408904905285:android:0e4314358215409b48292c"
     )
-    increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+
+    if latest_release.nil?
+      UI.message("No previous release found. Setting version code to 1.")
+      version_code = 1
+    else
+      version_code = latest_release[:buildVersion].to_i + 1
+    end
+
+    increment_version_code(version_code: version_code)
   end
 end
