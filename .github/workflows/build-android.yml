@@ -1,5 +1,5 @@
 name: Build and Distribute Android Release
-run-name: ${{ github.actor }} Build and Distribute Android Release 🚀
+run-name: ${{ github.actor }} is building and distributing Android Release 🚀
 
 on:
   push:
@@ -82,16 +82,8 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Increment Version Code
-        run: cd android && bundle exec fastlane increment_version
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
-      - name: Run Fastlane Build
-        run: cd android && bundle exec fastlane build
-
-      - name: Distribute to Firebase
-        run: cd android && bundle exec fastlane distribute
+      - name: Run Fastlane Release
+        run: cd android && bundle exec fastlane release
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 

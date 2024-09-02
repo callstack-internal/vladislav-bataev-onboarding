@@ -1,33 +1,10 @@
 default_platform(:android)
 
 platform :android do
-  desc "Build the Android app"
-  lane :build do
-    begin
-      gradle(
-        task: "assembleRelease"
-      )
-      UI.success("Build completed successfully 🚀")
-    rescue => e
-      UI.error("Failed to build the app: #{e}")
-      raise e
-    end
-  end
-
-  desc "Distribute the app to Firebase"
-  lane :distribute do
-    gradle(task: 'clean assembleRelease', project_dir: '.', print_command: false, properties: {})
-    release = firebase_app_distribution(
-        app: "1:408904905285:android:0e4314358215409b48292c",
-        testers: "bataevvlad@gmail.com, vladislav.bataev@callstack.com",
-        release_notes: "New amazing build!"
-    )
-  end
-
   desc "Increment build version"
   lane :increment_version do
     latest_release = firebase_app_distribution_get_latest_release(
-       app: "1:408904905285:android:0e4314358215409b48292c"
+      app: "1:408904905285:android:0e4314358215409b48292c"
     )
 
     if latest_release.nil?
@@ -38,5 +15,22 @@ platform :android do
     end
 
     increment_version_code(version_code: version_code)
+  end
+
+  desc "Distribute the app to Firebase"
+  lane :distribute do
+    gradle(task: 'clean assembleRelease', project_dir: '.', print_command: false, properties: {})
+
+    firebase_app_distribution(
+      app: "1:408904905285:android:0e4314358215409b48292c",
+      testers: "bataevvlad@gmail.com, vladislav.bataev@callstack.com",
+      release_notes: "New amazing build!"
+    )
+  end
+
+  desc "Full pipeline: Increment version and distribute"
+  lane :release do
+    increment_version
+    distribute
   end
 end
