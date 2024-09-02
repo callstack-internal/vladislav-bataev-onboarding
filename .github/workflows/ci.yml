@@ -1,5 +1,5 @@
 name: Build and Test
-run-name: ${{ github.actor }} is running Build and test 🚀
+run-name: ${{ github.actor }} is running basic tests 🚀
 
 on:
   pull_request:
