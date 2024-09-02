@@ -13,15 +13,15 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-## iOS
+## Android
 
-### ios build
+### android build
 
 ```sh
-[bundle exec] fastlane ios build
+[bundle exec] fastlane android build
 ```
 
-Build iOS Release app
+Build the Android app
 
 ----
 
